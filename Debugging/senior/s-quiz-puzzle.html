@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Senior Logic Puzzles</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Segoe UI", sans-serif;
+    background:
+      linear-gradient(135deg, rgba(0,0,0,0.85), rgba(0,0,0,0.95)),
+      url("https://images.unsplash.com/photo-1518770660439-4636190af475");
+    background-size: cover;
+    background-position: center;
+    color: #e6fffa;
+}
+
+.header-bar {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 60px;
+}
+
+h1 {
+    font-size: 30px;
+    color: #7fffd4;
+    text-shadow: 0 0 10px #00ffd5;
+}
+
+#timer {
+    background: #0f172a;
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-size: 18px;
+    color: #00ffd5;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(0,255,213,0.6);
+}
+
+.quiz-box {
+    max-width: 760px;
+    margin: 40px auto;
+    background: rgba(10, 20, 30, 0.92);
+    padding: 30px;
+    border-radius: 18px;
+    border: 1px solid rgba(0,255,213,0.3);
+    box-shadow: 0 0 30px rgba(0,255,213,0.35);
+}
+
+.question {
+    display: none;
+}
+.question.active {
+    display: block;
+}
+
+.question p {
+    font-size: 18px;
+    margin-bottom: 12px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #020617;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    color: #e6fffa;
+    font-family: monospace;
+    min-height: 80px;
+    resize: vertical;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #00ffd5;
+    box-shadow: 0 0 12px rgba(0,255,213,0.4);
+}
+
+.buttons {
+    text-align: center;
+    margin-top: 30px;
+}
+
+button {
+    padding: 12px 26px;
+    font-size: 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 0 8px;
+    border: none;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.prev {
+    background: linear-gradient(135deg,#6366f1,#4338ca);
+    color: white;
+}
+
+.next {
+    background: linear-gradient(135deg,#22c55e,#15803d);
+    color: white;
+}
+
+.submit {
+    background: linear-gradient(135deg,#f59e0b,#b45309);
+    color: #1f2937;
+}
+
+button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 18px rgba(0,255,213,0.6);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header-bar">
+    <h1>Senior Advanced Logic Puzzles</h1>
+    <div id="timer">Time: <span id="time">20:00</span></div>
+</div>
+
+<div class="quiz-box">
+<form id="quizForm">
+
+<div class="question active">
+<p>1. Five people sit in a row. Each person wears a different color shirt and plays a different sport. Use the clues to determine the arrangement. Alice sits next to Bob. Carol doesn't play tennis. Dave plays basketball. Eve doesn't wear red. Who sits in the middle?</p>
+<textarea name="puzzle1" placeholder="Explain your reasoning..."></textarea>
+</div>
+
+<div class="question">
+<p>2. A bridge can support a maximum weight of 200kg. Four people weigh 50kg, 75kg, 80kg, and 95kg respectively. Only two people can cross at a time, and at least one torch-bearer must accompany them. If the torch takes 5kg, what is the minimum number of crossings needed?</p>
+<textarea name="puzzle2" placeholder="Explain your reasoning..."></textarea>
+</div>
+
+<div class="question">
+<p>3. There are 100 prisoners and 100 boxes, each numbered 1-100. Each box contains a random prisoner's number. All prisoners must open exactly 50 boxes to succeed. What is the optimal strategy to maximize their probability of success?</p>
+<textarea name="puzzle3" placeholder="Explain your reasoning..."></textarea>
+</div>
+
+<div class="question">
+<p>4. A merchant wants to transport wine across three cities. He has 8 identical bottles of wine, but one contains poison. He has one test subject. What is the minimum number of tastings needed to identify the poisoned bottle?</p>
+<textarea name="puzzle4" placeholder="Explain your reasoning..."></textarea>
+</div>
+
+<div class="question">
+<p>5. You have a 5-minute hourglass and an 8-minute hourglass. How can you measure exactly 7 minutes?</p>
+<textarea name="puzzle5" placeholder="Explain your reasoning..."></textarea>
+</div>
+
+<div class="buttons">
+    <button type="button" class="prev" onclick="prevQuestion()">← Previous</button>
+    <button type="button" class="next" onclick="nextQuestion()">Next →</button>
+    <button type="submit" class="submit" onclick="submitQuiz(event)">Submit Puzzle</button>
+</div>
+
+</form>
+</div>
+
+<script>
+let currentQuestion = 0;
+const questions = document.querySelectorAll(".question");
+const totalQuestions = questions.length;
+let timeLeft = 1200;
+
+function showQuestion(n) {
+    questions[currentQuestion].classList.remove("active");
+    currentQuestion = (n + totalQuestions) % totalQuestions;
+    questions[currentQuestion].classList.add("active");
+}
+
+function nextQuestion() {
+    showQuestion(currentQuestion + 1);
+}
+
+function prevQuestion() {
+    showQuestion(currentQuestion - 1);
+}
+
+function submitQuiz(e) {
+    e.preventDefault();
+    alert("Puzzle submitted!");
+    window.history.back();
+}
+
+// Timer
+setInterval(() => {
+    if (timeLeft > 0) {
+        timeLeft--;
+        const mins = Math.floor(timeLeft / 60);
+        const secs = timeLeft % 60;
+        document.getElementById("time").textContent = 
+            mins + ":" + (secs < 10 ? "0" : "") + secs;
+    }
+}, 1000);
+</script>
+
+</body>
+</html>

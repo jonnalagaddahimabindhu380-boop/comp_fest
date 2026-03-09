@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Competition Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: 
+                linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),
+                url("https://images.unsplash.com/photo-1639322537228-f710d846310a");
+            background-size: cover;
+            background-position: center;
+            color: #e0fefe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dashboard {
+            width: 90%;
+            max-width: 900px;
+            background: rgba(10, 20, 25, 0.9);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 0 25px rgba(0, 255, 200, 0.25);
+            border: 1px solid rgba(0, 255, 200, 0.2);
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title h1 {
+            font-size: 32px;
+            color: #2fffdc;
+            letter-spacing: 1px;
+        }
+
+        .title p {
+            margin-top: 10px;
+            font-size: 15px;
+            color: #b7eaea;
+            opacity: 0.9;
+        }
+
+        .rounds {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: rgba(15, 30, 35, 0.9);
+            border-radius: 14px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 200, 0.25);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 20px rgba(0, 255, 200, 0.4);
+        }
+
+        .card h2 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #2fffdc;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #cfeeee;
+            margin-bottom: 20px;
+        }
+
+        .card a {
+            display: inline-block;
+            padding: 10px 22px;
+            background: linear-gradient(135deg, #00ffd5, #00bfa6);
+            color: #002222;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 30px;
+            transition: background 0.3s ease;
+        }
+
+        .card a:hover {
+            background: linear-gradient(135deg, #2fffdc, #00ffe1);
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 35px;
+            font-size: 13px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard">
+        <div class="title">
+            <h1>Competition Control Panel</h1>
+            <p>Select a round to begin • AI TechFest</p>
+        </div>
+
+        <div class="rounds">
+            <div class="card">
+                <h2>💻 Coding Competition</h2>
+                <p>
+                    Test your problem-solving and programming skills.
+                    Logic, accuracy, and speed matter.
+                </p>
+                <a href="s-coding-round.html">Start Coding Round</a>
+            </div>
+
+            <div class="card">
+                <h2>🧠 Quiz / Aptitude</h2>
+                <p>
+                    Challenge your reasoning, aptitude,
+                    and technical awareness.
+                </p>
+                <a href="s-quiz-round.html">Start Quiz Round</a>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            Round-1 • All participants are allowed to start
+        </div>
+    </div>
+
+</body>
+</html>
+
