@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>C MCQ Quiz</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Segoe UI", sans-serif;
+    background:
+      linear-gradient(135deg, rgba(0,0,0,0.85), rgba(0,0,0,0.95)),
+      url("https://images.unsplash.com/photo-1518770660439-4636190af475");
+    background-size: cover;
+    background-position: center;
+    color: #e6fffa;
+}
+
+/* HEADER */
+.header-bar {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 60px;
+}
+
+h1 {
+    font-size: 30px;
+    color: #7fffd4;
+    text-shadow: 0 0 10px #00ffd5;
+}
+
+#timer {
+    background: #0f172a;
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-size: 18px;
+    color: #00ffd5;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(0,255,213,0.6);
+}
+
+/* QUIZ BOX */
+.quiz-box {
+    max-width: 760px;
+    margin: 40px auto;
+    background: rgba(10, 20, 30, 0.92);
+    padding: 30px;
+    border-radius: 18px;
+    border: 1px solid rgba(0,255,213,0.3);
+    box-shadow: 0 0 30px rgba(0,255,213,0.35);
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.question {
+    display: none;
+}
+.question.active {
+    display: block;
+}
+
+.question p {
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+/* CODE BLOCK */
+pre {
+    background: #020617;
+    padding: 14px;
+    border-radius: 10px;
+    border-left: 4px solid #00ffd5;
+    box-shadow: inset 0 0 10px rgba(0,255,213,0.25);
+}
+
+/* OPTIONS */
+label {
+    display: block;
+    padding: 10px 14px;
+    margin: 10px 0;
+    background: #020617;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid #334155;
+    transition: all 0.3s ease;
+}
+
+label:hover {
+    background: #0f172a;
+    border-color: #00ffd5;
+    box-shadow: 0 0 12px rgba(0,255,213,0.4);
+}
+
+input[type="radio"] {
+    accent-color: #00ffd5;
+    margin-right: 10px;
+}
+
+/* BUTTONS */
+.buttons {
+    text-align: center;
+    margin-top: 30px;
+}
+
+button {
+    padding: 12px 26px;
+    font-size: 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 0 8px;
+    border: none;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.prev {
+    background: linear-gradient(135deg,#6366f1,#4338ca);
+    color: white;
+}
+
+.next {
+    background: linear-gradient(135deg,#22c55e,#15803d);
+    color: white;
+}
+
+.submit {
+    background: linear-gradient(135deg,#f59e0b,#b45309);
+    color: #1f2937;
+}
+
+button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 18px rgba(0,255,213,0.6);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header-bar">
+    <h1>Multiple Choice Questions in C Language</h1>
+    <div id="timer">Time: <span id="time">10:00</span></div>
+</div>
+
+<div class="quiz-box">
+<form id="quizForm">
+
+<!-- QUESTIONS (UNCHANGED) -->
+<div class="question active">
+<p><b>1. What is the output?</b></p>
+<pre>int a = 5;
+printf("%d %d", a++, ++a);</pre>
+<label><input type="radio" name="q1" value="a"> 5 7</label>
+<label><input type="radio" name="q1" value="b"> 6 6</label>
+<label><input type="radio" name="q1" value="c"> 5 6</label>
+<label><input type="radio" name="q1" value="d"> Undefined behavior</label>
+</div>
+
+<div class="question">
+<p><b>2. Which is a valid variable name?</b></p>
+<label><input type="radio" name="q2" value="a"> 1num</label>
+<label><input type="radio" name="q2" value="b"> _num</label>
+<label><input type="radio" name="q2" value="c"> float</label>
+<label><input type="radio" name="q2" value="d"> num-1</label>
+</div>
+
+<div class="question">
+<p><b>3. Output?</b></p>
+<pre>int x = 10;
+if(x = 5)
+printf("True");</pre>
+<label><input type="radio" name="q3" value="a"> True</label>
+<label><input type="radio" name="q3" value="b"> False</label>
+<label><input type="radio" name="q3" value="c"> Error</label>
+<label><input type="radio" name="q3" value="d"> No output</label>
+</div>
+
+<div class="question">
+<p><b>4. Output of sizeof(char)?</b></p>
+<label><input type="radio" name="q4" value="a"> 2</label>
+<label><input type="radio" name="q4" value="b"> 4</label>
+<label><input type="radio" name="q4" value="c"> 1</label>
+<label><input type="radio" name="q4" value="d"> Depends on system</label>
+</div>
+
+<div class="question">
+<p><b>5. Best loop when iterations are known?</b></p>
+<label><input type="radio" name="q5" value="a"> while</label>
+<label><input type="radio" name="q5" value="b"> do-while</label>
+<label><input type="radio" name="q5" value="c"> for</label>
+<label><input type="radio" name="q5" value="d"> infinite</label>
+</div>
+
+<div class="question">
+<p><b>6. Output?</b></p>
+<pre>int i=0;
+while(i<3){
+printf("%d",i);
+i++;
+}</pre>
+<label><input type="radio" name="q6" value="a"> 012</label>
+<label><input type="radio" name="q6" value="b"> 123</label>
+<label><input type="radio" name="q6" value="c"> 0123</label>
+<label><input type="radio" name="q6" value="d"> Infinite</label>
+</div>
+
+<div class="question">
+<p><b>7. Highest priority operator?</b></p>
+<label><input type="radio" name="q7" value="a"> +</label>
+<label><input type="radio" name="q7" value="b"> *</label>
+<label><input type="radio" name="q7" value="c"> =</label>
+<label><input type="radio" name="q7" value="d"> %</label>
+</div>
+
+<div class="question">
+<p><b>8. Output?</b></p>
+<pre>int a=2,b=3;
+printf("%d", a>b?a:b);</pre>
+<label><input type="radio" name="q8" value="a"> 2</label>
+<label><input type="radio" name="q8" value="b"> 3</label>
+<label><input type="radio" name="q8" value="c"> 1</label>
+<label><input type="radio" name="q8" value="d"> 0</label>
+</div>
+
+<div class="question">
+<p><b>9. Runtime error example?</b></p>
+<label><input type="radio" name="q9" value="a"> Missing semicolon</label>
+<label><input type="radio" name="q9" value="b"> Undeclared variable</label>
+<label><input type="radio" name="q9" value="c"> Division by zero</label>
+<label><input type="radio" name="q9" value="d"> Syntax error</label>
+</div>
+
+<div class="question">
+<p><b>10. What does this print?</b></p>
+<pre>for(i=1;i<=5;i+=2)
+printf("%d ",i);</pre>
+<label><input type="radio" name="q10" value="a"> Even numbers</label>
+<label><input type="radio" name="q10" value="b"> Odd numbers</label>
+<label><input type="radio" name="q10" value="c"> Infinite loop</label>
+<label><input type="radio" name="q10" value="d"> 1 to 5</label>
+</div>
+
+<div class="buttons">
+<button type="button" onclick="prevQ()">Previous</button>
+<button type="button" onclick="nextQ()">Next</button>
+<button type="button" onclick="submitQuiz()">Submit</button>
+</div>
+
+</form>
+<div id="result"></div>
+</div>
+
+<script>
+let current = 0;
+const questions = document.querySelectorAll(".question");
+
+function showQ(n){
+    questions.forEach(q => q.classList.remove("active"));
+    questions[n].classList.add("active");
+}
+function nextQ(){ if(current < questions.length-1){ current++; showQ(current); } }
+function prevQ(){ if(current > 0){ current--; showQ(current); } }
+
+/* TIMER */
+let time = 600;
+const timer = setInterval(()=>{
+    let m = Math.floor(time/60);
+    let s = time%60;
+    document.getElementById("time").innerText = m + ":" + (s<10?"0":"") + s;
+    time--;
+    if(time < 0){ clearInterval(timer); submitQuiz(); }
+},1000);
+
+/* SUBMIT + SAVE DATA */
+function submitQuiz(){
+    clearInterval(timer);
+
+    const correct = {
+        q1:"d", q2:"b", q3:"a", q4:"c", q5:"c",
+        q6:"a", q7:"b", q8:"b", q9:"c", q10:"b"
+    };
+
+    let score = 0;
+    let answers = {};
+
+    for(let q in correct){
+        let sel = document.querySelector(`input[name="${q}"]:checked`);
+        answers[q] = sel ? sel.value : "Not Answered";
+        if(sel && sel.value === correct[q]) score++;
+    }
+
+    const participant = JSON.parse(localStorage.getItem("participant"));
+    let all = JSON.parse(localStorage.getItem("allParticipants")) || [];
+
+    const index = all.findIndex(p => p.roll === participant.roll);
+
+    if(index === -1){
+        participant.round1 = { score, answers };
+        all.push(participant);
+    }else{
+        all[index].round1 = { score, answers };
+    }
+
+    localStorage.setItem("allParticipants", JSON.stringify(all));
+
+    setTimeout(()=>{
+        window.location.href = "competition-home.html";
+    },2000);
+}
+</script>
+
+</body>
+</html>

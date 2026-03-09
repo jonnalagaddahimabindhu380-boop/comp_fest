@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Error Detection</title>
+<style>
+*{margin:0; padding:0; box-sizing:border-box; font-family:"Segoe UI", sans-serif;}
+body{
+    min-height:100vh;
+    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)),
+        url("https://images.unsplash.com/photo-1611078488698-9f92b0f25238?fit=crop&w=1470&q=80");
+    background-size:cover;
+    background-position:center;
+    color:#e0fefe;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding:20px 0;
+}
+.header{
+    text-align:center;
+    max-width:900px;
+    margin-bottom:30px;
+    position:relative;
+}
+.header h1{
+    font-size:38px;
+    color:#77a09a;
+    text-shadow:0 0 8px #0b0f0e, 0 0 15px #080a0a;
+    margin-bottom:10px;
+}
+.timer{
+    position:absolute;
+    right:0;
+    top:0;
+    font-size:18px;
+    font-weight:bold;
+    color:#eef1f8;
+    text-shadow:0 0 6px #00ffd5;
+}
+.container{
+    width:85%;
+    max-width:900px;
+    background: rgba(10,20,25,0.92);
+    padding:25px;
+    border-radius:16px;
+    border:1px solid rgba(0,255,200,0.25);
+    box-shadow:0 0 25px rgba(0,255,200,0.3);
+}
+h2,h3{text-align:center;}
+h3{font-weight:normal;color:#cfeeee;margin-bottom:10px;}
+.code-box{
+    background:#111;
+    padding:15px;
+    border-radius:10px;
+    white-space:pre-wrap;
+    font-family:Consolas, monospace;
+    margin-bottom:15px;
+    border-left:4px solid #00ffd5;
+    box-shadow:0 0 10px rgba(0,255,200,0.3);
+}
+textarea{
+    width:100%;
+    height:180px;
+    background:#111;
+    color:#e0fefe;
+    border:none;
+    border-radius:10px;
+    padding:12px;
+    font-family:Consolas, monospace;
+    resize:none;
+    border-left:4px solid #2fffdc;
+}
+.buttons{text-align:center;margin-top:25px;}
+button{
+    background:linear-gradient(135deg,#00ffd5,#00bfa6);
+    color:#002222;
+    border:none;
+    padding:12px 25px;
+    margin:5px;
+    border-radius:25px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+    box-shadow:0 0 10px rgba(0,255,200,0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+button:hover{
+    transform:translateY(-4px);
+    box-shadow:0 0 20px rgba(0,255,200,0.7);
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Error Detection</h1>
+    <div class="timer">⏱ Time: <span id="time">20:00</span></div>
+</div>
+
+<div class="container">
+    <h2 id="qno">Question 1</h2>
+    <h3 id="progTitle">Program:</h3>
+    <div class="code-box" id="errorCode"></div>
+    <textarea placeholder="Rewrite the correct program here..."></textarea>
+    <div class="buttons">
+        <button onclick="prevQuestion()">Previous</button>
+        <button onclick="nextQuestion()">Next</button>
+        <button onclick="submitQuiz()">Submit</button>
+    </div>
+</div>
+
+<script>
+let questions = [
+    {
+        title:"C ",
+        code:`#include <stdio.h>\n\nint main() {\n    int i = 1;\n    printf("%d %d %d", i++, i++, ++i);\n    return 0;\n}`
+    },
+    {
+        title:"C",
+        code:`#include <stdio.h>\n\nint* fun() {\n    int x = 10;\n    return &x;\n}\n\nint main() {\n    int *p = fun();\n    printf("%d", *p);\n    return 0;\n}`
+    },
+    {
+        title:"C ",
+        code:`#include <stdio.h>\n\nvoid fun(int arr[]) {\n    printf("%lu ", sizeof(arr));\n}\n\nint main() {\n    int a[10];\n    printf("%lu ", sizeof(a));\n    fun(a);\n    return 0;\n}`
+    },
+    {
+        title:"Java ",
+        code:`class A {\n    A(int x) {\n        System.out.println("A");\n    }\n}\n\nclass B extends A {\n    B() {\n        System.out.println("B");\n    }\n    public static void main(String[] args) {\n        new B();\n    }\n}`
+    },
+    {
+        title:"Java ",
+        code:`class Test {\n    static {\n        System.out.print("1 ");\n    }\n    {\n        System.out.print("2 ");\n    }\n    Test() {\n        System.out.print("3 ");\n    }\n    public static void main(String[] args) {\n        new Test();\n        new Test();\n    }\n}`
+    },
+    {
+        title:"Python ",
+        code:`funcs = []\nfor i in range(3):\n    funcs.append(lambda: i)\n\nfor f in funcs:\n    print(f())`
+    },
+    {
+        title:"Python ",
+        code:`x = 10\n\ndef fun():\n    print(x)\n    x = 20\n\nfun()`
+    },
+    {
+        title:"HTML ",
+        code:`<form>\n  <input type="text" name="user">\n  <button type="button">Submit</button>\n</form>`
+    },
+    {
+        title:"Cross-Language Brain Melt",
+        code:`// Question: Why is this valid in C but illegal in Java?\nint x = (y = 5);`
+    }
+];
+
+let index = 0;
+let timeLeft = 1200;
+let timer;
+
+function loadQuestion(){
+    document.getElementById("qno").innerText = "Question " + (index+1);
+    document.getElementById("progTitle").innerText = "Program: " + questions[index].title;
+    document.getElementById("errorCode").innerText = questions[index].code;
+    document.querySelector("textarea").value = "";
+}
+
+function nextQuestion(){
+    if(index < questions.length-1){
+        index++;
+        loadQuestion();
+    }
+}
+
+function prevQuestion(){
+    if(index > 0){
+        index--;
+        loadQuestion();
+    }
+}
+
+function startTimer(){
+    timer = setInterval(()=>{
+        let min = Math.floor(timeLeft/60);
+        let sec = timeLeft % 60;
+        document.getElementById("time").innerText =
+            `${min}:${sec<10?"0"+sec:sec}`;
+        timeLeft--;
+        if(timeLeft < 0){
+            nextQuestion();
+        }
+    },1000);
+}
+
+function submitQuiz(){
+    alert("Round Submitted Successfully!");
+}
+
+loadQuestion();
+startTimer();
+</script>
+
+</body>
+</html>
